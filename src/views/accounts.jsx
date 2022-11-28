@@ -1,26 +1,24 @@
 import React from 'react';
-import { useContext, useState, useRef, useMemo, useEffect } from "react";
-import {Context} from "../context/context.js";
+import { useContext, useState } from "react";
 import {Notify} from "../components/toast.jsx";
 import {OTable} from "../components/tables.jsx";
 import {WithdrawModal} from "../components/modal.jsx";
 import logoA from "../assets/logoB.png";
-import { Data } from "../api/endpoints.js";
+
+import { Context } from "../context/context.js";
 
 const Accounts = ()=>
 {
-    const { state, dispatch } = useContext(Context);
     const [toast, setToast] = useState({show:false,msg:"No message!"});
-    const [data,setData] = useState(Data);
     const toastHandler=(note,noteState)=> setToast(pr=>({...pr,msg:note,show: !noteState}));
-    const [withdraw, setWitdraw] = useState({show:false,msg:"No message!"});
-
-    const handleModal = (transact,modalState)=> setWitdraw(pr=> ({...pr,show:!modalState}));
     
+    const {acc} = useContext(Context);
+    const[initialValue,setInitialValue] = acc;
+
     return (
         <>
-            <div className="row m-5 mt-1 ">
-                <div className="d-flex m-5 ">
+            <div className="row m-5 ">
+                <div className="d-flex mx-auto w-50">
                 <div> 
                     <img src={logoA} className="img-fluid p-2" style={{maxWidth:"100px"}}  />
                 </div>
@@ -28,11 +26,10 @@ const Accounts = ()=>
                 </div>
             </div>
             <div className="row justify-content-center">
-                <OTable data={Data}/>
-                    <Notify msg={toast.msg} onToast={toast.show} onClose={(e)=>toastHandler("",toast.show)} />
-                    {/* <WithdrawModal handleClose={false} show={withdraw.show} /> */}
+                <OTable data={initialValue}/>
+                <Notify msg={toast.msg} onToast={toast.show} onClose={(e)=>toastHandler("",toast.show)} />
             </div>
-            {/* {JSON.stringify(Data)} */}
+            {/* {JSON.stringify(data)} */}
         </>
     )
 }

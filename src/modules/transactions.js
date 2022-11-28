@@ -1,8 +1,13 @@
-import { accountType } from "../context/config";
-
-const Withdraw = ()=>
+const Withdraw = (accountType,balance,debit)=>
 {
-    
+    let accountBalance = parseFloat(balance) - parseFloat(debit);
+
+    switch(accountType)
+    {
+        case "cheque": return ( balance > 0 && accountBalance > 0)  ?  accountBalance : balance;
+        case "savings": return ( balance > -500 && accountBalance > -500)  ?  accountBalance  : balance;
+        default: return "1";
+    }
 }
 
 /**
@@ -12,13 +17,14 @@ const Withdraw = ()=>
  */
 const GlobalBalance = (data)=>
 {
+    // console.log( JSON.stringify(data))
     //set floating point on validation
       const x = data
         .filter(n=> n.balance.match(/^-?[0-9]\d*(\.\d+)?$/))
         .map(n=> 
         {
             return {...n,balance: parseFloat(n.balance)}
-        }).sort((a,b)=> a.accountType === b.accountType); 
+        }); 
 
     //return filtered object
     let accounts = {};
@@ -29,4 +35,4 @@ const GlobalBalance = (data)=>
         return accounts;
 }
 
-export { GlobalBalance }
+export { GlobalBalance, Withdraw }

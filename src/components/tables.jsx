@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 import {tableHeader} from "../context/config.js";
 import { GlobalBalance } from "../modules/transactions.js";
 import {WithdrawModal} from "./modal.jsx";
-import { useContext, useState, useRef, useMemo, useEffect } from "react";
+import { useState } from "react";
 
 const OTable = (props)=>
 {  
@@ -14,7 +14,7 @@ const OTable = (props)=>
     const handleModalOpen = (val,obj)=> setWitdraw(pr=> ({...pr,show:!val,transact:obj})); 
     const handleModalClose = ()=> setWitdraw(pr=> ({...pr,show:!withdraw.show}));
 
-   console.log(withdraw.show)
+    const btnColor = {no:"btn btn-sm btn-secondary w-75",yes:"btn btn-sm btn-success w-75"};
     return(
         <>
         <div className="table-responsive w-50 p-1 shadow">
@@ -33,6 +33,9 @@ const OTable = (props)=>
                                 <td onClick={()=> handleModalOpen(withdraw.show,n)} title="click to transact" className="text-primary text-decoration-underline">{n.account_number}</td>
                                 <td className="text-capitalize" >{n.account_type}</td>
                                 <td className={(n.balance < 0 ) ? "text-danger" : "text-dark" }>ZAR {n.balance}</td>
+                                <td >
+                                    <input type="button" value="Withdraw" onClick={()=> handleModalOpen(withdraw.show,n)} title="click to transact"  className={(n.account_type === "savings" && n.balance < 0 || n.account_type === "cheque" && n.balance < -500) ? btnColor.no : btnColor.yes} /> 
+                                </td>
                             </tr>)
                         )
                     }
@@ -40,7 +43,7 @@ const OTable = (props)=>
                 <tfoot>
                     <tr>
                         <td colSpan={tableHeader.length-1} className="fw-bold" >GLOBAL BALANCE: </td>
-                        <td className="text-center fw-bold">ZAR {account.balance}</td>
+                        <td className="text-center fw-bold">ZAR {account.balance.toFixed(2)}</td>
                     </tr>
                 </tfoot>   
             </Table>
