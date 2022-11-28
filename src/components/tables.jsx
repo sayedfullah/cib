@@ -33,7 +33,7 @@ const OTable = (props)=>
                                 <td className="text-capitalize" >{n.account_type}</td>
                                 <td className={(n.balance < 0 ) ? "text-danger" : "text-dark" }>ZAR {n.balance}</td>
                                 <td >
-                                    <input type="button" value="Withdraw" onClick={()=> handleModalOpen(withdraw.show,n)} title="click to transact"  className={(n.account_type === "savings" && n.balance < 0 || n.account_type === "cheque" && n.balance < -500) ? btnColor.no : btnColor.yes} /> 
+                                    <input type="button" value="Withdraw" onClick={()=> handleModalOpen(withdraw.show,n)} title="click to transact"  className={((n.account_type === "savings" && n.balance < 0) || (n.account_type === "cheque" && n.balance < -500)) ? btnColor.no : btnColor.yes} /> 
                                 </td>
                             </tr>)
                         )

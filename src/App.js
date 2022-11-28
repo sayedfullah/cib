@@ -7,6 +7,9 @@ function App() {
  
   const [initialValue, setInitialValue] = useState([])
 
+  /*
+   opted to not use useMemoization, because of dynamic data
+  */
   useEffect(()=>
   {
     RemoteData()
@@ -15,6 +18,11 @@ function App() {
     .catch(()=> alert("server unavailable"));
   },[]);
 
+  /*
+    Best to use class component to support error boundary
+    Unsure as to approach, generally two accounts per user.
+
+  */
   return (
     <Context.Provider value={ {"acc":[initialValue,setInitialValue]} }>
       <div className="container-fluid h-100" >

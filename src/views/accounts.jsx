@@ -1,11 +1,14 @@
 import React from 'react';
 import { useContext, useState } from "react";
-import {Notify} from "../components/toast.jsx";
 import {OTable} from "../components/tables.jsx";
 import logoA from "../assets/logoB.png";
 
 import { Context } from "../context/context.js";
 
+/**
+ * 
+ * @returns main vieww component
+ */
 const Accounts = ()=>
 {
     const [toast, setToast] = useState({show:false,msg:"No message!"});
@@ -26,7 +29,6 @@ const Accounts = ()=>
             </div>
             <div className="row justify-content-center">
                 <OTable data={initialValue}/>
-                <Notify msg={toast.msg} onToast={toast.show} onClose={(e)=>toastHandler("",toast.show)} />
             </div>
         </>
     )

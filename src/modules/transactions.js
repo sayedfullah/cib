@@ -1,3 +1,14 @@
+/*
+    I should have made a ledger to record dt + corresponding cr
+*/
+
+/**
+ * 
+ * @param {*} accountType 
+ * @param {*} balance 
+ * @param {*} debit 
+ * @returns valid balance
+ */
 const Withdraw = (accountType,balance,debit)=>
 {
     let accountBalance = parseFloat(balance) - parseFloat(debit);
@@ -13,7 +24,7 @@ const Withdraw = (accountType,balance,debit)=>
 /**
  * Calculate balances
  * @param {*} data 
- * @returns 
+ * @returns summary of bank balance
  */
 const GlobalBalance = (data)=>
 {
