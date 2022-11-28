@@ -1,6 +1,5 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-// import { Data } from "../api/endpoints.js";
 import {tableHeader} from "../context/config.js";
 import { GlobalBalance } from "../modules/transactions.js";
 import {WithdrawModal} from "./modal.jsx";

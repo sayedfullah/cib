@@ -4,22 +4,22 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { Context } from '../context/context';
 import {Withdraw} from "../modules/transactions.js";
+import {Notify} from "../components/toast.jsx";
 
 const WithdrawModal = (props)=>
 {
   const [debit, setDebit] = useState(0);
-  
+  const [toast, setToast] = useState({show:false,msg:"No message!"});
   const {acc} = useContext(Context);
   const[initialValue,setInitialValue] = acc;
- 
+  const toastHandler=(note,noteState)=> setToast(pr=>({...pr,msg:note,show: !noteState}));
   const withdrawalHandler = (accountNumber,accountType,balance,debit)=>
   {
       initialValue.forEach(n =>
        { 
           let a = Withdraw(accountType,balance,debit);
-          console.log(a);
-          setInitialValue(pr=> pr.map(n=> {if (n.account_number === accountNumber) {return {...n, balance:a.toFixed(2)}} return n}))
-      
+          setInitialValue(pr=> pr.map(n=> {if (n.account_number === accountNumber) {toastHandler("Transaction Successfull",toast.show); return {...n, balance:a.toFixed(2)}} return n}))
+          
     });
   }
 
@@ -56,6 +56,8 @@ const WithdrawModal = (props)=>
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <Notify msg={toast.msg} onToast={toast.show} onClose={(e)=>toastHandler("",toast.show)} />
     </>
   );
 }

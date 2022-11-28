@@ -17,7 +17,6 @@ const Withdraw = (accountType,balance,debit)=>
  */
 const GlobalBalance = (data)=>
 {
-    // console.log( JSON.stringify(data))
     //set floating point on validation
       const x = data
         .filter(n=> n.balance.match(/^-?[0-9]\d*(\.\d+)?$/))

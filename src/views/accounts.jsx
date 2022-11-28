@@ -2,7 +2,6 @@ import React from 'react';
 import { useContext, useState } from "react";
 import {Notify} from "../components/toast.jsx";
 import {OTable} from "../components/tables.jsx";
-import {WithdrawModal} from "../components/modal.jsx";
 import logoA from "../assets/logoB.png";
 
 import { Context } from "../context/context.js";
@@ -29,7 +28,6 @@ const Accounts = ()=>
                 <OTable data={initialValue}/>
                 <Notify msg={toast.msg} onToast={toast.show} onClose={(e)=>toastHandler("",toast.show)} />
             </div>
-            {/* {JSON.stringify(data)} */}
         </>
     )
 }
